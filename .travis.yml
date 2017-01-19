@@ -6,6 +6,9 @@ node_js:
 - '7'
 services:
 - docker
+env:
+  matrix:
+  - CLOUDSDK_CORE_DISABLE_PROMPTS=1
 before_install:
 - openssl aes-256-cbc -K $encrypted_7088fb4a24e4_key -iv $encrypted_7088fb4a24e4_iv
   -in client-secret.json.enc -out client-secret.json -d
