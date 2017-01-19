@@ -1,0 +1,21 @@
+language: node_js
+cache:
+  yarn: true
+  directories: node_modules
+node_js:
+- '7'
+services:
+- docker
+before_install:
+- openssl aes-256-cbc -K $encrypted_7088fb4a24e4_key -iv $encrypted_7088fb4a24e4_iv
+  -in client-secret.json.enc -out client-secret.json -d
+script:
+- deployment/setup_gcloud
+after_success:
+- docker build -t floq-www .
+- docker run -d floq-www
+- docker ps -a
+- deployment/deploy
+notifications:
+  slack:
+    secure: LcvOVc8J4BZZtYWQS+nBXtkxwLj3E9mp7WVsmVWz3uIs2p50k+pF1EgurpoKfbMnJrGKb5n413GbXdcS5GNlPolUSnubnqVb6EmpSofsdcoSr5qUkeiZI27dTDa6ci8ARWS/Obx2JIramP//588Tbu4yJOy0vBv+VwtRxnWRneEs7Ug+uskXqO6RYRRK96z3+dSc4ZAepW6Euuq9CqF/2XA+I+OdcNmfWlloD7mBs5TEdEOqH5XtZlO5gEhqJUemxKwFgTRSR7ztJ+C8YelL7+ToixgeoVGtN8O7A9qCuwJodroHjFur54LB6cBLFBXT+M6G6SnyjwLZ+Ui949qE/cVF0j8wps2vJa3tYFD1wixQ453T2NNMHacnUfONPt7ED+PyLWuTvb/O9CBro35iRoCvvvVkrdLwDGxg+fdVGM36DDvrjOGyL5XbODg5QJpJmOA3bLwiTOtE0DOSF71XzJVyNpXPixN+AIlKGjCuOkJfKUDC2+P8udaX7UAxsFpwlIXMNiT4iPzoNjgpcdL1dinFr3KleUgrij9QQF3zE+znZUVjBFpee1Vsw5d53zq6vOs4Od8M4+Lgm9MSh7nxEGXLGa+PtQy1EbsjhdeARjQhnlIVoxwUycsZhvBaBu/G604HFH+3+hdMeeIl3pShvz2jqL/kZYRKWsR3mg4Urq8=
