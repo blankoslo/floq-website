@@ -24,6 +24,6 @@ if ! [ -z "$ENV" ]; then
   gcloud docker -- push "$IMAGE_NAME:$ENV"
   "$HOME/google-cloud-sdk/bin/kubectl" \
     set image deployment/floq-www \
-    --namespace=floq-blank-$ENV \
+    --namespace=default \
     "floq-www=$IMAGE_NAME:$TAG"
 fi
